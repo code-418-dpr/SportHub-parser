@@ -1,0 +1,15 @@
+### IDE
+.idea/
+.vscode/
+
+### Cache
+__pycache__/
+.ruff_cache/
+*.py[cod]
+tmp/
+
+### Env
+.env
+
+### Logs
+*.log
