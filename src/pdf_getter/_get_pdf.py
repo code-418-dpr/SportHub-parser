@@ -43,16 +43,15 @@ async def get_pdf_file(local_only: bool = False) -> Path | None:
 
         changed = False
         if PREV_URL_PATH.exists():
-            async with aiofiles.open(PREV_URL_PATH, "r+") as file:
+            async with aiofiles.open(PREV_URL_PATH) as file:
                 prev_url = await file.read()
-                if prev_url != file_url:
-                    await file.write(file_url)
-                    changed = True
         else:
             Path("tmp").mkdir(exist_ok=True)
+            prev_url = None
+        if prev_url != file_url:
             async with aiofiles.open(PREV_URL_PATH, "w") as file:
                 await file.write(file_url)
-                changed = True
+            changed = True
 
         if not changed:
             logger.info("Файл не изменился")

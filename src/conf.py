@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-load_dotenv()
+is_dotenv_loaded = load_dotenv()
 
 LOCAL_PDF_ONLY = bool(os.getenv("LOCAL_PDF_ONLY"))
 PDF_FILE_URL = os.getenv("PDF_FILE_URL")
@@ -23,4 +23,10 @@ logging.basicConfig(
     filemode="w",
     format="%(name)s [%(asctime)s] %(levelname)s %(message)s",
 )
-logging.getLogger("httpcore").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)  # The minimal level for this module when its logs are useful
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
+logger.debug(
+    "Config is set up, env vars are loaded %s",
+    "from file" if is_dotenv_loaded else "already",
+)
