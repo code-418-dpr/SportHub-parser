@@ -17,16 +17,5 @@ if LOG_LEVEL not in ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"):
     error_msg = "LOG_LEVEL должен иметь одно из этих значений: DEBUG, INFO, WARNING, ERROR, CRITICAL"
     raise ValueError(error_msg)
 
-logging.basicConfig(
-    encoding="utf-8",
-    level=LOG_LEVEL,
-    filemode="w",
-    format="%(name)s [%(asctime)s] %(levelname)s %(message)s",
-)
-logging.getLogger("httpcore").setLevel(logging.WARNING)  # The minimal level for this module when its logs are useful
-logging.getLogger("httpx").setLevel(logging.WARNING)
-logger = logging.getLogger(__name__)
-logger.debug(
-    "Config is set up, env vars are loaded %s",
-    "from file" if is_dotenv_loaded else "already",
-)
+SEQ_API_KEY = os.getenv("SEQ_API_KEY")
+SEQ_URL = os.getenv("SEQ_URL")
