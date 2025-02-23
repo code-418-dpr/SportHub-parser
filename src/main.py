@@ -1,12 +1,10 @@
-from pathlib import Path
-
 from fastapi import FastAPI, Response, status
 
-from src.conf import LOCAL_PDF_ONLY
+from src.conf import LOCAL_PDF_ONLY, TMP_PATH
 from src.logger import get_logger
 from src.process import process
 
-OUTPUT_PATH = Path("tmp/table.pdf")
+OUTPUT_PATH = TMP_PATH / "table.pdf"
 
 logger = get_logger(__name__)
 app = FastAPI()

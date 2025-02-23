@@ -1,6 +1,6 @@
 import logging
 
-from _setup_logger import setup_logger
+from src.logger._setup_logger import setup_logger
 
 setup_logger()
 
