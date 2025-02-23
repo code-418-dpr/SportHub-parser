@@ -5,7 +5,8 @@
 [![downloads](https://img.shields.io/github/downloads/code-418-dpr/SportHub-parser/total)](https://github.com/code-418-dpr/SportHub-parser/releases)
 [![code size](https://img.shields.io/github/languages/code-size/code-418-dpr/SportHub-parser.svg)](https://github.com/code-418-dpr/SportHub-parser)
 
-[![linter](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml)
+[![Ruff linter](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml)
+[![CodeQL (Python)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yml)
 
 Парсер PDF-файла Единого календарного плана мероприятий Министерства спорта России для извлечения данных
 о мероприятиях за год в формате JSON

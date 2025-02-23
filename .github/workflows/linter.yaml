@@ -1,31 +1,19 @@
-name: linter
-permissions:
-  contents: read
-  pull-requests: read
+name: Ruff linter
 
 on:
   push:
-    paths-ignore:
-      - "*.md"
-      - "LICENSE"
-      - ".gitignore"
-      - "Dockerfile"
-      - "compose.yaml"
-      - ".dockerignore"
-      - ".env*"
+    paths:
+      - "**.py"
   pull_request:
-    paths-ignore:
-      - "*.md"
-      - "LICENSE"
-      - ".gitignore"
-      - "Dockerfile"
-      - "compose.yaml"
-      - ".dockerignore"
-      - ".env*"
+    paths:
+      - "**.py"
 
 jobs:
   lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
 
     steps:
       - name: Checkout repo
@@ -36,8 +24,8 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Install the linter
+      - name: Install Ruff
         run: uv tool install ruff
 
-      - name: Run linter
+      - name: Run Ruff
         run: uvx ruff check .

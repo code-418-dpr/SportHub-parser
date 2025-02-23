@@ -1,34 +1,19 @@
-name: "CodeQL"
+name: CodeQL (Python)
 
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - "*.md"
-      - "LICENSE"
-      - ".gitignore"
-      - "Dockerfile"
-      - "compose.yaml"
-      - ".dockerignore"
-      - ".env*"
-      - "tmp.example"
+    paths:
+      - "**.py"
   pull_request:
     branches: [ "main" ]
-    paths-ignore:
-      - "*.md"
-      - "LICENSE"
-      - ".gitignore"
-      - "Dockerfile"
-      - "compose.yaml"
-      - ".dockerignore"
-      - ".env*"
-      - "tmp.example"
+    paths:
+      - "**.py"
   schedule:
     - cron: '0 12 * * 1'
 
 jobs:
   analyze:
-    name: Analyze Python
     runs-on: 'ubuntu-latest'
     permissions:
       security-events: write
@@ -38,9 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-        - language: python
-          build-mode: none
+        language: python
 
     steps:
     - name: Checkout repository
@@ -50,7 +33,6 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
-        build-mode: ${{ matrix.build-mode }}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
