@@ -1,17 +1,18 @@
-import logging
 import re
+
+from src.logger import get_logger
 
 MIN_AGE, MAX_AGE = 0, 150
 MALE_KEYWORDS = {"мальчики", "юноши", "юниоры", "мужчины"}
 FEMALE_KEYWORDS = {"девочки", "девушки", "юниорки", "женщины"}
 HYPHEN_REGEX = re.compile(r"\s*-\s*")
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 def parse(source: str) -> dict[str, list[bool] | list[int]]:
     genders: list[bool] = [False, False]
-    ages: list[tuple[int, int], ...] = []
+    ages: list[tuple[int, int]] = []
     last_word = ""
     source = HYPHEN_REGEX.sub("-", source)
 
@@ -32,7 +33,7 @@ def parse(source: str) -> dict[str, list[bool] | list[int]]:
             last_word = word
         if not ages:
             ages.append((MIN_AGE, MAX_AGE))
-    except:
-        logger.exception("Ошибка при парсинге участников события")
+    except:  # noqa: E722
+        logger.exception("Error when parsing the event participants")
 
     return {"ages": ages, "genders": genders}

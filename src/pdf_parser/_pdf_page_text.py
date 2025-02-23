@@ -1,8 +1,8 @@
-import logging
 import re
 from enum import Enum
 
-from . import _event_participants
+from src.logger import get_logger
+from src.pdf_parser import _event_participants
 
 KEYWORDS = {"лет", "младше", "старше"} | _event_participants.MALE_KEYWORDS | _event_participants.FEMALE_KEYWORDS
 DATE_REGEX = re.compile(r"^\d{2}\.\d{2}\.\d{4}$")
@@ -19,13 +19,13 @@ class State(Enum):
     CITY_PARTICIPANTS_COUNT = 6
 
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 sport = team = ""
 
 
-def parse(text: str) -> list[dict]:
-    global sport, team
+def parse(text: str) -> list[dict]:  # noqa: C901, PLR0912, PLR0915
+    global sport, team  # noqa: PLW0603
     data = []
     state = State.SPORT_TEAM_ID
     id_ = title = start = end = country = city = participants = categories = ""

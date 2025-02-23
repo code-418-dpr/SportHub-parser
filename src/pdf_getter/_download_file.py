@@ -1,14 +1,15 @@
-import logging
 from pathlib import Path
 
 import aiofiles
 import httpx
 
-logger = logging.getLogger(__name__)
+from src.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 async def download_file(http_client: httpx.AsyncClient, path: Path, url: str) -> bool:
-    logger.info("Скачиваем файл по адресу %s", url)
+    logger.info("Downloading the file", extra={"url": url})
 
     try:
         async with (
@@ -17,9 +18,9 @@ async def download_file(http_client: httpx.AsyncClient, path: Path, url: str) ->
         ):
             async for chunk in response.aiter_bytes():
                 await file.write(chunk)
-    except:
-        logger.exception("Ошибка при скачивании файла")
+    except:  # noqa: E722
+        logger.exception("Error when downloading the file")
         return False
     else:
-        logger.info("Файл скачан")
+        logger.info("File downloaded")
         return True

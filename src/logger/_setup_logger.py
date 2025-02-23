@@ -13,7 +13,7 @@ def setup_logger() -> None:
         format="%(name)s [%(asctime)s] %(levelname)s %(message)s",
     )
     logging.getLogger("httpcore").setLevel(
-        logging.WARNING
+        logging.WARNING,
     )  # The minimal loglevel for this module when its logs are useful
     logging.getLogger("httpx").setLevel(logging.WARNING)
 

@@ -1,27 +1,26 @@
-import logging
 from pathlib import Path
 
 import aiofiles
 import httpx
 from dotenv import load_dotenv
 
-from src.conf import PDF_FILE_URL
-
-from ._download_file import download_file
-from ._get_html_page import get_html_page
-from ._parse_file_url import parse_file_url
+from src.conf import PDF_FILE_URL, TMP_PATH
+from src.logger import get_logger
+from src.pdf_getter._download_file import download_file
+from src.pdf_getter._get_html_page import get_html_page
+from src.pdf_getter._parse_file_url import parse_file_url
 
 load_dotenv()
-PREV_URL_PATH = Path("tmp/prev_url.txt")
-PDF_FILE_PATH = Path("tmp/table.pdf")
+PREV_URL_PATH = TMP_PATH / "prev_url.txt"
+PDF_FILE_PATH = TMP_PATH / "table.pdf"
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 async def get_pdf_file(local_only: bool = False) -> Path | None:
     logger.info(
-        "Получаем PDF-файл и сведения о нём. Режим локального получения: %s",  # noqa: RUF001
-        local_only,
+        "Getting the PDF file and the info about it",
+        extra={"is_local_only": local_only},
     )
     result = None
 
@@ -30,7 +29,7 @@ async def get_pdf_file(local_only: bool = False) -> Path | None:
             if PDF_FILE_PATH.exists():
                 result = PDF_FILE_PATH
             else:
-                logger.error("Файл не найден")
+                logger.error("File not found")
             return result
 
         page = await get_html_page(client, PDF_FILE_URL)
@@ -46,7 +45,7 @@ async def get_pdf_file(local_only: bool = False) -> Path | None:
             async with aiofiles.open(PREV_URL_PATH) as file:
                 prev_url = await file.read()
         else:
-            Path("tmp").mkdir(exist_ok=True)
+            TMP_PATH.mkdir(exist_ok=True)
             prev_url = None
         if prev_url != file_url:
             async with aiofiles.open(PREV_URL_PATH, "w") as file:
@@ -54,12 +53,12 @@ async def get_pdf_file(local_only: bool = False) -> Path | None:
             changed = True
 
         if not changed:
-            logger.info("Файл не изменился")
+            logger.info("File not changed")
             result = PDF_FILE_PATH
         else:
-            logger.info("Файл изменился")
+            logger.info("File changed")
             is_file_downloaded = await download_file(client, PDF_FILE_PATH, file_url)
             if is_file_downloaded:
-                logger.info("Файл скачан")
+                logger.info("File downloaded")
                 result = PDF_FILE_PATH
         return result
