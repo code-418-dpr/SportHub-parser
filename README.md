@@ -6,16 +6,10 @@
 [![code size](https://img.shields.io/github/languages/code-size/code-418-dpr/SportHub-parser.svg)](https://github.com/code-418-dpr/SportHub-parser)
 
 [![Ruff linter](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml)
-[![CodeQL (Python)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yml)
+[![CodeQL (Python)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yaml)
 
-Парсер PDF-файла Единого календарного плана мероприятий Министерства спорта России для извлечения данных
-о мероприятиях за год в формате JSON
-
-> [!NOTE]
-> Разработано в рамках окружного этапа Чемпионата России по спортивному программированию в дисциплине
-> «программирование продуктовое» командой Код 418 из Донецкой Народной Республики, по итогам соревнований
-> [занявшей](https://vk.com/wall-67577440_6427) 2 место среди команд Новых регионов и 3 место в общем зачёте команд
-> России. 🖤💙❤️
+Один из сервисов проекта [SportHub](https://github.com/code-418-dpr/SportHub). Парсер PDF-файла Единого календарного
+плана мероприятий Министерства спорта России для извлечения данных о мероприятиях за год.
 
 ## Особенности реализации
 
@@ -91,4 +85,10 @@ uv run -m src.main
 
 ```shell
 uv sync
+```
+
+Запустить линтинг кода (и автоисправление некоторых ошибок) можно через Ruff:
+
+```shell
+uv run ruff check --fix .
 ```
