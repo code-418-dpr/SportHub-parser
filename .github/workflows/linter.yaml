@@ -1,0 +1,43 @@
+name: linter
+permissions:
+  contents: read
+  pull-requests: read
+
+on:
+  push:
+    paths-ignore:
+      - "*.md"
+      - "LICENSE"
+      - ".gitignore"
+      - "Dockerfile"
+      - "compose.yaml"
+      - ".dockerignore"
+      - ".env*"
+  pull_request:
+    paths-ignore:
+      - "*.md"
+      - "LICENSE"
+      - ".gitignore"
+      - "Dockerfile"
+      - "compose.yaml"
+      - ".dockerignore"
+      - ".env*"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install the linter
+        run: uv tool install ruff
+
+      - name: Run linter
+        run: uvx ruff check .
