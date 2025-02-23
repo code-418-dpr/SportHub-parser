@@ -1,17 +1,16 @@
 import asyncio
-import logging
-from pathlib import Path
 
 import httpx
 
-from .conf import BACKEND_DATA_ROUTE_URL
-from .pdf_getter import get_pdf_file
-from .pdf_parser import parse_pdf_file
+from src.conf import BACKEND_DATA_ROUTE_URL, TMP_PATH
+from src.logger import get_logger
+from src.pdf_getter import get_pdf_file
+from src.pdf_parser import parse_pdf_file
 
-PREV_URL_PATH = Path("tmp/prev_url.txt")
-PDF_FILE_PATH = Path("tmp/table.pdf")
+PREV_URL_PATH = TMP_PATH / "prev_url.txt"
+PDF_FILE_PATH = TMP_PATH / "table.pdf"
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 async def process(local_pdf_only: bool = False) -> bool:
@@ -27,13 +26,13 @@ async def process(local_pdf_only: bool = False) -> bool:
                 timeout=60,
             )
             if num % 100 == 0:
-                logger.info("Обработано %s страниц", num)
+                logger.info("Processed %s pages", num)
                 await asyncio.sleep(10)
             if response.status_code not in (200, 201):
                 logger.error(
-                    "Ошибка %s при отправке данных на сервер: %s",
+                    "%s while sending data to server",
                     response.status_code,
-                    response.json(),
+                    extra={"json": response.json()},
                 )
                 return False
     return True

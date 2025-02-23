@@ -23,7 +23,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: python
+        include:
+          - language: python
+            build-mode: none
 
     steps:
     - name: Checkout repository
