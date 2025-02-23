@@ -1,16 +1,21 @@
 ARG PYTHON_VERSION=3.13
-FROM python:${PYTHON_VERSION}-slim AS base
+FROM ghcr.io/astral-sh/uv:python${PYTHON_VERSION}-bookworm-slim AS base
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
 WORKDIR /app
-EXPOSE 3000
 
-ARG POETRY_VERSION=1.8.5
 FROM base AS deps
-COPY pyproject.toml poetry.lock ./
-RUN pip install --no-cache poetry==$POETRY_VERSION
-RUN python -m poetry install --only main --no-cache --no-ansi --no-interaction
+COPY pyproject.toml uv.lock ./
+RUN --mount=type=cache,id=uv,target=/root/.cache/uv \
+    uv sync --frozen --no-dev
 
-FROM deps AS prod
-COPY src/ ./
-COPY *.env ./
-
-CMD ["poetry", "run", "python", "-m", "src.main"]
+FROM python:${PYTHON_VERSION}-slim-bookworm AS prod
+WORKDIR /app
+COPY src src
+COPY *.env .
+COPY --from=deps /app/.venv .venv
+RUN . .venv/bin/activate
+EXPOSE 3000
+ENTRYPOINT []
+ENV PATH="/app/.venv/bin:$PATH"
+CMD ["python", "-m", "src.main"]
