@@ -1,16 +1,18 @@
-name: CodeQL (Python)
+name: CodeQL (Python, GH Actions)
 
 on:
   push:
     branches: [ "main" ]
     paths:
       - "**.py"
+      - ".github/**"
   pull_request:
     branches: [ "main" ]
     paths:
       - "**.py"
+      - ".github/**"
   schedule:
-    - cron: '0 12 * * 1'
+    - cron: "0 0 * * 1"
 
 jobs:
   analyze:
@@ -23,9 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - language: python
-            build-mode: none
+        language: ["python", "actions"]
 
     steps:
     - name: Checkout repository
@@ -35,6 +35,7 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
+        dependency-caching: true
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
