@@ -3,6 +3,7 @@
 **/.venv
 **/.classpath
 **/.dockerignore
+**/.env.template
 **/.git
 **/.gitignore
 **/.project
@@ -23,8 +24,8 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
-**/LICENSE
-**/*.md
-**/.env.template
+LICENSE
+**/.*md
 
 tmp.example
+ruff.toml

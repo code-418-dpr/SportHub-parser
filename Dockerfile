@@ -7,15 +7,16 @@ WORKDIR /app
 FROM base AS deps
 COPY pyproject.toml uv.lock ./
 RUN --mount=type=cache,id=uv,target=/root/.cache/uv \
-    uv sync --frozen --no-dev
+    uv sync --frozen --no-install-project --no-dev
 
 FROM python:${PYTHON_VERSION}-slim-bookworm AS prod
 WORKDIR /app
 COPY src src
 COPY *.env .
 COPY --from=deps /app/.venv .venv
+
 RUN . .venv/bin/activate
-EXPOSE 3000
 ENTRYPOINT []
 ENV PATH="/app/.venv/bin:$PATH"
-CMD ["python", "-m", "src.main"]
+EXPOSE 3000
+CMD ["python", "-m", "src"]
