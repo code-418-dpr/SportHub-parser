@@ -1,16 +1,17 @@
 version: 2
+enable-beta-ecosystems: true
 updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     ignore:
       - dependency-name: "*"
         update-types: [ "version-update:semver-patch" ]
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     ignore:
       - dependency-name: "*"
         update-types: [ "version-update:semver-patch" ]
