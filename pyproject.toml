@@ -1,6 +1,6 @@
 [project]
 name = "SportHub-parser"
-version = "1.0.0"
+version = "1.1.0"
 requires-python = "==3.13.*"
 dependencies = [
     "httpx>=0.28.1",
@@ -13,4 +13,7 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["ruff>=0.9.6"]
+dev = [
+    "pre-commit>=4.2.0",
+    "ruff>=0.9.6",
+]
