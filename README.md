@@ -6,7 +6,7 @@
 [![code size](https://img.shields.io/github/languages/code-size/code-418-dpr/SportHub-parser.svg)](https://github.com/code-418-dpr/SportHub-parser)
 
 [![Ruff linter](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml)
-[![CodeQL (Python)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yaml)
+[![CodeQL (Python, GH Actions)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yaml)
 
 Один из сервисов проекта [SportHub](https://github.com/code-418-dpr/SportHub). Парсер PDF-файла Единого календарного
 плана мероприятий Министерства спорта России для извлечения данных о мероприятиях за год.
@@ -15,7 +15,7 @@
 
 - [x] готов к изменению ссылки на файл на странице Минспорта (см.
   [пример страницы, содержащей ссылку](https://www.minsport.gov.ru/activity/government-regulation/edinyj-kalendarnyj-plan/)
-  / II часть ЕКП / 2024)
+  / II часть ЕКП / 2025)
 - [x] проверяет актуальность файла по HTTP-запросу и, если ссылка на него была обновлена, запускает парсинг
 - [x] мгновенно извлекает сырой текст из файла PDF (см. [пример файла](./tmp.example/table.pdf))
 - [x] парсит релевантные данные через самописный алгоритм, основанный на текстовых паттернах и состояниях
@@ -36,8 +36,8 @@
 ## Установка и запуск
 
 > [!WARNING]
-> Для работы парсера не забудьте запустить сервер-приёмник. Запуск парсера осуществляется отправкой пустого POST-запроса
-> на `<адрес сервера парсера>/run-parser`.
+> Для работы парсера не забудьте запустить сервер-приёмник, на который будут отправляться данные. Запуск парсера
+> осуществляется отправкой пустого POST-запроса на единственный эндпоинт `<адрес сервера парсера>/run-parser`.
 
 0. Клонируйте репозиторий и перейдите в его папку.
 
@@ -76,7 +76,7 @@ uv sync --frozen --no-dev
 4. Теперь запускать проект можно командой:
 
 ```shell
-uv run -m src.main
+uv run -m src
 ```
 
 ## Модификация
