@@ -25,4 +25,4 @@ async def run_parser(response: Response) -> Response:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=3000)  # noqa: S104
+    uvicorn.run(app, host="0.0.0.0", port=8000)  # noqa: S104
