@@ -20,5 +20,4 @@ if LOG_LEVEL not in ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"):
     error_msg = "LOG_LEVEL must be one of: DEBUG, INFO, WARNING, ERROR, CRITICAL"
     raise ValueError(error_msg)
 
-SEQ_API_KEY = os.getenv("SEQ_API_KEY")
 SEQ_URL = os.getenv("SEQ_URL")

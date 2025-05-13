@@ -7,6 +7,7 @@
 
 [![Ruff linter](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/linter.yaml)
 [![CodeQL (Python, GH Actions)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/codeql.yaml)
+[![Docker Build](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/docker.yaml/badge.svg)](https://github.com/code-418-dpr/SportHub-parser/actions/workflows/docker.yaml)
 
 Один из сервисов проекта [SportHub](https://github.com/code-418-dpr/SportHub). Парсер PDF-файла Единого календарного
 плана мероприятий Министерства спорта России для извлечения данных о мероприятиях за год.

@@ -2,7 +2,7 @@ import logging
 
 import seqlog
 
-from src.conf import LOG_LEVEL, SEQ_API_KEY, SEQ_URL, is_dotenv_loaded
+from src.conf import LOG_LEVEL, SEQ_URL, is_dotenv_loaded
 
 
 def setup_logger() -> None:
@@ -17,11 +17,10 @@ def setup_logger() -> None:
     )  # The minimal loglevel for this module when its logs are useful
     logging.getLogger("httpx").setLevel(logging.WARNING)
 
-    if SEQ_API_KEY and SEQ_URL:
+    if SEQ_URL:
         seqlog.log_to_seq(
             server_url=SEQ_URL,
-            api_key=SEQ_API_KEY,
-            level=logging.getLogger().level,
+            level=LOG_LEVEL,
             batch_size=10,
             auto_flush_timeout=10,
             override_root_logger=True,
@@ -30,7 +29,7 @@ def setup_logger() -> None:
             use_clef=True,
         )
     else:
-        logging.getLogger(__name__).warning("No SEQ_API_KEY or SEQ_URL provided, logging to console")
+        logging.getLogger(__name__).warning("No SEQ_URL provided, logging to console")
 
     logger = logging.getLogger(__name__)
     logger.debug(
