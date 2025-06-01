@@ -55,7 +55,7 @@ docker build -t sporthub-parser .
 4. Теперь запускать проект можно командой:
 
 ```shell
-docker run -d --name sporthub-parser-standalone -p 3000:3000 sporthub-parser
+docker run -d --name sporthub-parser-standalone -p 8000:8000 sporthub-parser
 ```
 
 ### Без использования Docker

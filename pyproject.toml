@@ -4,16 +4,16 @@ version = "1.1.0"
 requires-python = "==3.13.*"
 dependencies = [
     "httpx>=0.28.1",
-    "pymupdf>=1.25.5",
+    "pymupdf>=1.26.0",
     "python-dotenv>=1.1.0",
     "aiofiles>=24.1.0",
     "fastapi>=0.115.12",
-    "uvicorn>=0.34.2",
+    "uvicorn>=0.34.3",
     "seqlog>=0.4.1",
 ]
 
 [dependency-groups]
 dev = [
     "pre-commit>=4.2.0",
-    "ruff>=0.11.9",
+    "ruff>=0.11.12",
 ]
